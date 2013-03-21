@@ -18,6 +18,8 @@
 		D092F0B516FBB589004A655D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D092F0B416FBB589004A655D /* Default-568h@2x.png */; };
 		D092F0B816FBB589004A655D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D092F0B616FBB589004A655D /* MainStoryboard.storyboard */; };
 		D092F0BB16FBB589004A655D /* SGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D092F0BA16FBB589004A655D /* SGViewController.m */; };
+		D092F0C216FBB595004A655D /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D092F0C116FBB595004A655D /* AssetsLibrary.framework */; };
+		D092F0C416FBB5CE004A655D /* Photos in Resources */ = {isa = PBXBuildFile; fileRef = D092F0C316FBB5CE004A655D /* Photos */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		D092F0B716FBB589004A655D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		D092F0B916FBB589004A655D /* SGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SGViewController.h; sourceTree = "<group>"; };
 		D092F0BA16FBB589004A655D /* SGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SGViewController.m; sourceTree = "<group>"; };
+		D092F0C116FBB595004A655D /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		D092F0C316FBB5CE004A655D /* Photos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Photos; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D092F0C216FBB595004A655D /* AssetsLibrary.framework in Frameworks */,
 				D092F09F16FBB589004A655D /* UIKit.framework in Frameworks */,
 				D092F0A116FBB589004A655D /* Foundation.framework in Frameworks */,
 				D092F0A316FBB589004A655D /* CoreGraphics.framework in Frameworks */,
@@ -56,6 +61,7 @@
 		D092F09216FBB589004A655D = {
 			isa = PBXGroup;
 			children = (
+				D092F0C116FBB595004A655D /* AssetsLibrary.framework */,
 				D092F0A416FBB589004A655D /* PopulatePhotos */,
 				D092F09D16FBB589004A655D /* Frameworks */,
 				D092F09C16FBB589004A655D /* Products */,
@@ -88,6 +94,7 @@
 				D092F0B616FBB589004A655D /* MainStoryboard.storyboard */,
 				D092F0B916FBB589004A655D /* SGViewController.h */,
 				D092F0BA16FBB589004A655D /* SGViewController.m */,
+				D092F0C316FBB5CE004A655D /* Photos */,
 				D092F0A516FBB589004A655D /* Supporting Files */,
 			);
 			path = PopulatePhotos;
@@ -164,6 +171,7 @@
 				D092F0B316FBB589004A655D /* Default@2x.png in Resources */,
 				D092F0B516FBB589004A655D /* Default-568h@2x.png in Resources */,
 				D092F0B816FBB589004A655D /* MainStoryboard.storyboard in Resources */,
+				D092F0C416FBB5CE004A655D /* Photos in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

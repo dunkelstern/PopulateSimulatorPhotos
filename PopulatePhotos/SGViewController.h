@@ -10,4 +10,10 @@
 
 @interface SGViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+
+- (IBAction)populate:(id)sender;
+- (IBAction)addAlbums:(id)sender;
+- (IBAction)insertPhotosIntoAlbums:(id)sender;
+
 @end
