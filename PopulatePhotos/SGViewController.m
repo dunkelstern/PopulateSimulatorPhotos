@@ -35,43 +35,47 @@
     [super viewDidLoad];
 }
 
-- (void)updateLabelText:(NSString *)text
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.statusLabel.text = text;
-    });
-}
-
 - (IBAction)populate:(id)sender
 {
     self.statusLabel.text = @"Populating...";
-    dispatch_queue_t queue = dispatch_queue_create("com.secondgear.PopulatePhotos", 0);
-    dispatch_async(queue, ^{        
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSBundle *mainBundle = [NSBundle mainBundle];
         NSArray *paths = [mainBundle pathsForResourcesOfType:@"jpg" inDirectory:@"Photos"];
-        [self updateLabelText:[NSString stringWithFormat:@"Found %d photos.", [paths count]]];
-        
-        [paths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSString *path = (NSString *)obj;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.statusLabel setText:[NSString stringWithFormat:@"Found %d photos.", [paths count]]];
+            [self.spinner startAnimating];
+        });
+
+        [paths enumerateObjectsUsingBlock:^(NSString *path, NSUInteger idx, BOOL *stop) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.progressBar setProgress:(CGFloat)idx / (CGFloat)paths.count];
+                [self.statusLabel setText:[NSString stringWithFormat:@"Adding photo %d to the library.", idx]];
+            });
+
             UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
-            [self updateLabelText:[NSString stringWithFormat:@"Adding photo %d to the library.", idx]];
             UIImageWriteToSavedPhotosAlbum(image, self, NULL, NULL);
         }];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.spinner stopAnimating];
+        });
     });
 }
 
 - (IBAction)addAlbums:(id)sender
 {
     // Creating 15 albums.
-    [self updateLabelText:@"Creating Albums..."];
+    [self.statusLabel setText:@"Creating Albums..."];
     
     __weak typeof(self) bSelf = self;
     for (NSInteger i = 1; i < 15 ; i++)
     {        
         NSString *albumName = [NSString stringWithFormat:@"Sample Album %d", i];
         [self.library addAssetsGroupAlbumWithName:albumName resultBlock:^(ALAssetsGroup *group) {
-            [bSelf updateLabelText:[NSString stringWithFormat:@"Created album %@.", albumName]];
-            [bSelf.albums addObject:group];            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [bSelf.statusLabel setText:[NSString stringWithFormat:@"Created album %@.", albumName]];
+            });
+            [bSelf.albums addObject:group];
         } failureBlock:^(NSError *error) {
             NSLog(@"Bad developer. No cookie. %@", error);
         }];
@@ -80,7 +84,7 @@
 
 - (IBAction)insertPhotosIntoAlbums:(id)sender
 {
-    [self updateLabelText:@"Adding Photos to albums..."];
+    [self.statusLabel setText:@"Adding Photos to albums..."];
 
     // And iterate the photo library and add them to a random album
     [self.library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
@@ -89,8 +93,9 @@
             {
                 int albumIndex = 0 + arc4random() % (14 - 0);
                 NSString *message =[NSString stringWithFormat:@"Added photo %d to an album.", index];
-                [self updateLabelText:message];
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.statusLabel setText:message];
+                });
 
                 ALAssetsGroup *randomAlbum = self.albums[albumIndex];
                 [randomAlbum addAsset:asset];

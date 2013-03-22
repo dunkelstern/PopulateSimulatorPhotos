@@ -11,6 +11,8 @@
 @interface SGViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 
 - (IBAction)populate:(id)sender;
 - (IBAction)addAlbums:(id)sender;
