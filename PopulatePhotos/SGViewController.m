@@ -8,6 +8,7 @@
 
 
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <ImageIO/ImageIO.h>
 #import "SGViewController.h"
 
 #define NOT_DONE 0
@@ -46,14 +47,31 @@
             [self.spinner startAnimating];
         });
 
+        ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
         [paths enumerateObjectsUsingBlock:^(NSString *path, NSUInteger idx, BOOL *stop) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.progressBar setProgress:(CGFloat)idx / (CGFloat)paths.count];
-                [self.statusLabel setText:[NSString stringWithFormat:@"Adding photo %d to the library.", idx]];
-            });
-
-            UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
-            UIImageWriteToSavedPhotosAlbum(image, self, NULL, NULL);
+            CGImageSourceRef source = CGImageSourceCreateWithURL((__bridge CFURLRef)[NSURL fileURLWithPath:path], nil);
+            if (source) {
+                CGImageRef rawImage = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+                CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil);
+                CFRelease(source);
+                [lib writeImageToSavedPhotosAlbum:rawImage metadata:(__bridge NSDictionary *)(imageProperties) completionBlock:^(NSURL *assetURL, NSError *error) {
+                    if (error) {
+                        NSLog(@"Failed to write image to library: %@", error);
+                    } else {
+                        NSLog(@"Wrote image to library: %@", assetURL);
+                    }
+                    if (imageProperties) {
+                        CFRelease(imageProperties);
+                    }
+                    if (rawImage) {
+                        CGImageRelease(rawImage);
+                    }
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.progressBar setProgress:(CGFloat)idx / (CGFloat)paths.count];
+                        [self.statusLabel setText:[NSString stringWithFormat:@"Adding photo %d to the library.", idx]];
+                    });
+                }];
+            }
         }];
 
         dispatch_async(dispatch_get_main_queue(), ^{

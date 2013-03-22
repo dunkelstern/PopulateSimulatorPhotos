@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F33F0A316FCC0DA00A2BA23 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F33F0A216FCC0DA00A2BA23 /* ImageIO.framework */; };
 		D092F09F16FBB589004A655D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D092F09E16FBB589004A655D /* UIKit.framework */; };
 		D092F0A116FBB589004A655D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D092F0A016FBB589004A655D /* Foundation.framework */; };
 		D092F0A316FBB589004A655D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D092F0A216FBB589004A655D /* CoreGraphics.framework */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F33F0A216FCC0DA00A2BA23 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		D092F09B16FBB589004A655D /* PopulatePhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopulatePhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D092F09E16FBB589004A655D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D092F0A016FBB589004A655D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -48,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F33F0A316FCC0DA00A2BA23 /* ImageIO.framework in Frameworks */,
 				D092F0C216FBB595004A655D /* AssetsLibrary.framework in Frameworks */,
 				D092F09F16FBB589004A655D /* UIKit.framework in Frameworks */,
 				D092F0A116FBB589004A655D /* Foundation.framework in Frameworks */,
@@ -61,6 +64,7 @@
 		D092F09216FBB589004A655D = {
 			isa = PBXGroup;
 			children = (
+				8F33F0A216FCC0DA00A2BA23 /* ImageIO.framework */,
 				D092F0C116FBB595004A655D /* AssetsLibrary.framework */,
 				D092F0A416FBB589004A655D /* PopulatePhotos */,
 				D092F09D16FBB589004A655D /* Frameworks */,
